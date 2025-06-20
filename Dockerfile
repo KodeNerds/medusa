@@ -1,21 +1,21 @@
-# Use official Node.js image
-FROM node:18
+# Use Node.js 20 (LTS)
+FROM node:20
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy dependency files first and install
 COPY package.json yarn.lock ./
 RUN yarn install --production
 
-# Copy remaining source code
+# Copy the rest of the code
 COPY . .
 
-# Set environment variables
+# Set production environment
 ENV NODE_ENV=production
 
 # Expose Medusa default port
 EXPOSE 9000
 
-# Start Medusa
+# Start the Medusa server
 CMD ["yarn", "start"]
